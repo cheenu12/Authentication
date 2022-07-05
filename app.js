@@ -3,7 +3,7 @@ const express= require ("express");
 const bodyParser= require("body-parser");
 const mongoose= require("mongoose");
 const ejs= require("ejs");
-const encrypt= require("mongoose-encryption")
+const md5= require("md5");
 
 const app=express();
 
@@ -20,8 +20,7 @@ const userSchema=new mongoose.Schema({
     pass:String
 });
 
-//const secret="iamthepass";
-userSchema.plugin(encrypt,{secret:process.env.SECRETS ,encryptedFields:["pass"]});
+
 
 const User =new mongoose.model("user", userSchema);             // lowercase (user) is the collection name
                                                                 //uppercase (User) is model name
@@ -49,7 +48,7 @@ app.post("/register", function(req, res)
     const newUser = new User(
         { 
             email: req.body.username,
-            pass:req.body.password
+            pass:md5(req.body.password)          // this is hashfunction
 
         }
     );
@@ -70,7 +69,11 @@ app.post("/register", function(req, res)
 ///////////////////////
 app.post("/login", function(req, res)
 {
-  User.findOne({email:req.body.username}, function(err , found)
+
+    const username=req.body.username;
+    const password =md5(req.body.password);     // again the  hash function 
+                                                // what the user has entered in the pass field we changed it to the hashcode
+  User.findOne({email:username}, function(err , found)
   {
     if(err)
     {
@@ -83,7 +86,8 @@ app.post("/login", function(req, res)
 
 
         if(found){
-        if(found.pass    === req.body.password )
+        if(found.pass    === password )    //comparing both the hash codes.
+                                           // because hashfunction always produced the same output if the  input is same
         {
     
             res.render("secrets");
@@ -94,7 +98,7 @@ app.post("/login", function(req, res)
             res.send("you have entered the worng password");
         }
     }}
-    res.send("incorrect email please register first");
+  
 });
   
 
