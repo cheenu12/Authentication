@@ -29,5 +29,15 @@ so we will get a new hash code so this is (1 round of saltinng) you and do as ma
 but remember the random set of char/ num will remain same in the the rounds.(visit level4 commits to review the code).
 
 
-          ![images](https://user-images.githubusercontent.com/99245027/177948704-714fca4e-9d48-4075-8d0e-4b65f57ec549.jpg)
+----level 5 :(PASSPORT) to make cookies so at this level i have used the passport package of npm from which we can make cokkies
+example we visit amazon.com and we didn't have created an account and we added somthing in our cart and then closed the site so
+amazon will create a cookie of that item in our browser and when we  go to the other websites like fb, instagram etc it will show 
+similar kind of ads like the products we have added in our cart. so this is all possible beacuse of cokkies. and when we came back
+to amazon.com we will still see that item will be in the cart although if we are not logged in .and passport also can use the secuirty
+of hashing and salting by defaultand many methods are also there like passport.authenticate etc (visit level 5 commit to view source code).
 
+
+----level 6:(OAuth) so this is the level which has the highest security in then we will be using the 3rd party application (google,
+facebook) to secure our users password. isn't is cool google facebook will be securing our password.  so we will be using OAuth 
+for this procedure (it acts as an interface b/w our web app and the third party apps). so we will be going though cerain steps.
+waitt for it...
